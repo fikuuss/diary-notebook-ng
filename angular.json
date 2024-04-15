@@ -97,23 +97,6 @@
             ],
             "scripts": []
           }
-        },
-        "deploy": {
-          "builder": "@angular/fire:deploy",
-          "options": {
-            "version": 2
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "diary-notebook-ng:build:production",
-              "serveTarget": "diary-notebook-ng:serve:production"
-            },
-            "development": {
-              "buildTarget": "diary-notebook-ng:build:development",
-              "serveTarget": "diary-notebook-ng:serve:development"
-            }
-          },
-          "defaultConfiguration": "production"
         }
       }
     }
