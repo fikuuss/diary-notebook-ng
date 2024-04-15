@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "diary-notebook-ng",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

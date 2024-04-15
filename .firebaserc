@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "notebook-f3ee4": {
+      "hosting": {
+        "diary-notebook-ng": [
+          "notebook-f3ee4"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "notebook-f3ee4"
+  }
+}
