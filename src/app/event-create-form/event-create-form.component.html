@@ -1,21 +1,17 @@
 <nord-modal #modal aria-labelledby="title">
-    <h2 slot="header" id="title">Создать событие</h2>
-  
-    <form method="dialog" id="myForm" [formGroup]="form">
-      <nord-stack>
-        <nord-select
-          name="input-1"
-          label="Calendar"
-          placeholder="Pick an option"
-        >
-          @for (calendar of context.calendars; track calendar.id) {
-            <option value="{{calendar.id}}">{{calendar.name}}</option>
-          }
-        </nord-select>
-        <nord-input ngDefaultControl label="Title" type="text" formControlName="title"></nord-input>
-        <nord-input ngDefaultControl label="Start" formControlName="start" type="datetime-local"></nord-input>
-        <nord-input ngDefaultControl label="End" formControlName="end" type="datetime-local"></nord-input>
-        <!-- <nord-select
+  <h2 slot="header" id="title">Создать событие</h2>
+
+  <form method="dialog" id="myForm" [formGroup]="form">
+    <nord-stack>
+      <nord-select name="input-1" label="Calendar" placeholder="Pick an option">
+        @for (calendar of context.calendars; track calendar.id) {
+        <option value="{{calendar.id}}">{{calendar.name}}</option>
+        }
+      </nord-select>
+      <nord-input ngDefaultControl label="Title" type="text" formControlName="title"></nord-input>
+      <nord-input ngDefaultControl label="Start" formControlName="start" type="datetime-local"></nord-input>
+      <nord-input ngDefaultControl label="End" formControlName="end" type="datetime-local"></nord-input>
+      <!-- <nord-select
           autofocus
           expand
           name="input-1"
@@ -28,9 +24,8 @@
           <option value="4">It’s broken</option>
           <option value="5">Something else</option>
         </nord-select> -->
-      </nord-stack>
-    </form>
-  
-    <nord-button slot="footer" expand form="myForm" value="cancel">Cancel</nord-button>
-    <nord-button slot="footer" expand form="myForm" type="submit" value="add" variant="primary">Submit</nord-button>
-  </nord-modal>
+    </nord-stack>
+  </form>
+  <button slot="footer" type="button" class="btn btn-secondary">Отменить</button>
+  <nord-button slot="footer" expand form="myForm" type="submit" value="add" variant="primary">Submit</nord-button>
+</nord-modal>

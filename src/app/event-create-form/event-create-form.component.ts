@@ -53,7 +53,7 @@ export class EventCreateFormComponent implements OnInit, AfterViewInit {
       isAllday: boolean;
       gridSelectionElements: HTMLDivElement[];
       nativeEvent: MouseEvent;
-      calendars: CalendarDto;
+      calendars: CalendarDto[];
       completeWith: () => Record<string, unknown>;
     },
     private readonly vcr: ViewContainerRef,
