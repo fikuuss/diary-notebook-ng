@@ -1,35 +1,34 @@
 import {
   ApplicationRef,
-  ComponentRef,
   Injectable,
   Injector,
   Type,
   createComponent,
 } from '@angular/core';
-import { DIALOG_CONTEXT_TOKEN } from './dialog-context.token';
-import { Observable } from 'rxjs';
+import {dialogContextToken} from './dialog-context.token';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DialogService {
-  constructor(private appRef: ApplicationRef) {}
+  constructor(private readonly appRef: ApplicationRef) {}
 
   open<T, K>(
     component: Type<T>,
-    context?: K
+    context?: K,
   ): Observable<unknown> {
-    const obs = new Observable((observer) => {
+    const obs = new Observable(observer => {
       const modal = createComponent<T>(component, {
         environmentInjector: this.appRef.injector,
         elementInjector: Injector.create({
           parent: this.appRef.injector,
           providers: [
             {
-              provide: DIALOG_CONTEXT_TOKEN,
+              provide: dialogContextToken,
               useValue: {
                 ...context,
-                completeWith: (result: unknown): void => {
+                completeWith(result: unknown): void {
                   observer.next(result);
                   observer.complete();
                 },

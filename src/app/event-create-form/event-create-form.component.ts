@@ -3,17 +3,15 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   ChangeDetectionStrategy,
   Component,
-  ComponentRef,
   ElementRef,
   Inject,
-  OnDestroy,
   OnInit,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import { DIALOG_CONTEXT_TOKEN } from '../shared/dialog/dialog-context.token';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {dialogContextToken} from '../shared/dialog/dialog-context.token';
+import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {CalendarDto} from '../calendars/calendars.service';
 
 const convertToDateTimeLocalString = (date: Date) => {
   const year = date.getFullYear();
@@ -35,6 +33,8 @@ const convertToDateTimeLocalString = (date: Date) => {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventCreateFormComponent implements OnInit, AfterViewInit {
+  @ViewChild('modal') modalEl!: ElementRef<HTMLDivElement & {showModal: () => Record<string, unknown>}>;
+
   form = this.fb.group({
     calendar: null,
     title: '',
@@ -43,24 +43,22 @@ export class EventCreateFormComponent implements OnInit, AfterViewInit {
     end: convertToDateTimeLocalString(this.context.end ?? new Date()),
   });
 
+  private readonly viewElemRef = this.vcr.element as ElementRef<HTMLElement>;
+
   constructor(
-    @Inject(DIALOG_CONTEXT_TOKEN)
+    @Inject(dialogContextToken)
     readonly context: {
       start: Date;
       end: Date;
       isAllday: boolean;
       gridSelectionElements: HTMLDivElement[];
       nativeEvent: MouseEvent;
-      calendars: any,
-      completeWith: () => {};
+      calendars: CalendarDto[];
+      completeWith: () => Record<string, unknown>;
     },
     private readonly vcr: ViewContainerRef,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
   ) {}
-
-  @ViewChild('modal') modalEl!: ElementRef<
-    HTMLDivElement & { showModal: () => {} }
-  >;
 
   ngOnInit() {
     console.log(this.form);
@@ -72,7 +70,7 @@ export class EventCreateFormComponent implements OnInit, AfterViewInit {
     });
     this.modalEl.nativeElement.addEventListener('close', () => {
       this.modalEl.nativeElement.addEventListener('transitionend', () => {
-        this.vcr.element.nativeElement.remove();
+        this.viewElemRef.nativeElement.remove();
       });
       this.vcr.clear();
       this.context.completeWith();

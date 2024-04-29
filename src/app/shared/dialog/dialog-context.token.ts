@@ -1,3 +1,3 @@
-import { InjectionToken } from "@angular/core";
+import {InjectionToken} from '@angular/core';
 
-export const DIALOG_CONTEXT_TOKEN = new InjectionToken('DIALOG_CONTEXT_TOKEN');
+export const dialogContextToken = new InjectionToken('DIALOG_CONTEXT_TOKEN');
